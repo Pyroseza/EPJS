@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
-</html
+</head>
+<body>
+<script>
+    let ws = new WebSocket("ws://");
+
+    ws.onopen = function () {
+        ws.send("i exist")
+    };
+    ws.onclose = function () {
+        ws.send("fuck you too")
+    };
+
+    ws.onmessage = function (event) {
+        let messageBox = document.getElementById("messages");
+        messageBox.innerText += event.data + "\n";
+    }
+</script>
+<h1>Hello Chat!</h1>
+
+<div id="messages">
+</div>
+</body>
+</html>
