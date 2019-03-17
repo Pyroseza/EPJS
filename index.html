@@ -6,18 +6,25 @@
 </head>
 <body>
 <script>
-    let ws = new WebSocket("ws://");
+    window.onload = function () {
+        console.log("test")
+        let ws = new WebSocket("wss://echo.websocket.org");
 
-    ws.onopen = function () {
-        ws.send("i exist")
-    };
-    ws.onclose = function () {
-        ws.send("fuck you too")
-    };
+        ws.onopen = function () {
+            ws.send("testing")
+            console.log("test 2")
+        };
+        ws.onclose = function () {
+            ws.send("fuck you too")
+        };
 
-    ws.onmessage = function (event) {
-        let messageBox = document.getElementById("messages");
-        messageBox.innerText += event.data + "\n";
+        ws.onmessage = function (event) {
+            let messageBox = document.getElementById("messages");
+            messageBox.innerText += event.data + "\n";
+            setTimeout(function () {
+                ws.send("testing")
+            }, 1000);
+        }
     }
 </script>
 <h1>Hello Chat!</h1>
