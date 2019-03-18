@@ -2,35 +2,52 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Engineerman powered jet system</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<script>
-    window.onload = function () {
-        console.log("test")
-        let ws = new WebSocket("wss://echo.websocket.org");
-
-        ws.onopen = function () {
-            ws.send("testing")
-            console.log("test 2")
-        };
-        ws.onclose = function () {
-            ws.send("fuck you too")
-        };
-
-        ws.onmessage = function (event) {
-            let messageBox = document.getElementById("messages");
-            messageBox.innerText += event.data + "\n";
-            setTimeout(function () {
-                ws.send("testing")
-            }, 1000);
-        }
-    }
-</script>
-<h1>Hello Chat!</h1>
-
-<div id="messages">
+<div id="title-bar">
+    <div id="title-bar-btns">
+        <button id="min-btn">-</button>
+        <button id="max-btn">+</button>
+        <button id="close-btn">x</button>
+    </div>
 </div>
 </body>
+<script>
+    (function () {
+        // Retrieve remote BrowserWindow
+        const {BrowserWindow} = require('electron').remote
+
+        function init() {
+            // Minimize task
+            document.getElementById("min-btn").addEventListener("click", (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                window.minimize();
+            });
+
+            // Maximize window
+            document.getElementById("max-btn").addEventListener("click", (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                if(window.isMaximized()){
+                    window.unmaximize();
+                }else{
+                    window.maximize();
+                }
+            });
+
+            // Close app
+            document.getElementById("close-btn").addEventListener("click", (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                window.close();
+            });
+        };
+
+        document.onreadystatechange =  () => {
+            if (document.readyState == "complete") {
+                init();
+            }
+        };
+    })();
+</script>
 </html>

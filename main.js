@@ -1,16 +1,19 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron');
 
+let menu = Menu.buildFromTemplate(setMainMenu())
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
 function createWindow() {
     // Create the browser window.
-    win = new BrowserWindow({width: 800, height: 600})
-
+    win = new BrowserWindow({width: 800, height: 600, frame: false})
     // and load the index.html of the app.
     win.loadFile('index.html')
 
+
+    // set custom menu
+    win.setMenu(menu)
     // Open the DevTools.
     win.webContents.openDevTools()
 
@@ -23,10 +26,27 @@ function createWindow() {
     })
 }
 
+
+app.on("ready", () => {
+        createWindow()
+    }
+)
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+function setMainMenu() {
+    const template = [
+        {
+            label: 'Exit',
+            accelerator: 'Shift+CmdOrCtrl+H',
+            click() {
+                console.log('Oh, hi there!')
+                closeApp()
+            }
+        }
+    ];
+    return template
+}
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -45,6 +65,10 @@ app.on('activate', () => {
     }
 })
 
-app.on('browser-window-created',function(e,window) {
+app.on('browser-window-created', function (e, window) {
     window.setMenu(null);
 });
+
+function closeApp() {
+    win.close()
+}
