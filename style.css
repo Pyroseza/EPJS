@@ -47,7 +47,15 @@ body {
 
 .lobby {
     text-align: center;
+    width: 100%;
     min-height: 25px;
-    background-color: #4c4c4a;
     color: black;
+    border: 0;
+    background-color: #1a1a18;
+    color: slategray;
+    margin: 0 0 5px 0;
+}
+
+.lobby:hover{
+    background-color: #2e2e2c;
 }
