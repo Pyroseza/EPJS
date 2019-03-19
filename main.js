@@ -1,5 +1,6 @@
 const {app, BrowserWindow, Menu} = require('electron');
 let menu = Menu.buildFromTemplate(setMainMenu())
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -10,17 +11,21 @@ function createWindow() {
         width: 800,
         height: 600,
         frame: false,
+        minWidth: 600,
+        minHeight: 400,
         webPreferences: {
             nodeIntegration: true
         },
+        icon: "icon_64.png",
 
     })
+
     // and load the index.html of the app.
     win.loadFile('index.html')
 
-
     // set custom menu
     win.setMenu(menu)
+
     // Open the DevTools.
     win.webContents.openDevTools()
 
