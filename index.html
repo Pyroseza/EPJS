@@ -10,6 +10,7 @@
     <img src="icon_64.png" id="icon">
     <div id="title"> Engineerman powered jet system</div>
     <div id="title-bar-btns">
+        <button id="dev">dev</button>
         <button id="min-btn">-</button>
         <button id="max-btn">+</button>
         <button id="close-btn">x</button>
@@ -30,9 +31,20 @@
     (function () {
         // Retrieve remote BrowserWindow
         const {BrowserWindow} = require('electron').remote
-
+        let dev = false
         function init() {
             // Minimize task
+            document.getElementById("dev").addEventListener("click", (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                if (dev === false) {
+                    window.webContents.openDevTools()
+                    dev = true
+                }else{
+                    window.webContents.closeDevTools()
+                    dev = false
+                }
+                console.log("dev tools:", dev)
+            })
             document.getElementById("min-btn").addEventListener("click", (e) => {
                 var window = BrowserWindow.getFocusedWindow();
                 window.minimize();
