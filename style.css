@@ -20,7 +20,7 @@ body {
 #icon {
     position: fixed;
     left: 0;
-    min-width: 40px;
+    min-width: 20px;
     height: 40px;
 }
 
