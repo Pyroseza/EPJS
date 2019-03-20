@@ -29,19 +29,17 @@
 </body>
 <script src="script.js"></script>
 <script>
-    var ws = new WebSocket("ws://109.156.186.198:80");
+    var ws = new WebSocket("ws://127.0.0.1:8080/echo");
 
-    ws.onopen = function (ev) {
-        ws.send("connected");
-        console.log("connection made");
+    ws.onopen = function () {
+        ws.send("test")
     };
 
-    ws.onclose = function (ev) {
-        console.log("closing")
+    ws.onmessage = function (e) {
+        console.log(e.data)
+        ws.send(e.data)
     };
 
-    ws.onmessage = function (ev) {
-        console.log(ev.data)
-    };
+
 </script>
 </html>
