@@ -27,6 +27,21 @@
     </div>
 </div>
 </body>
-<script src="script.js">
+<script src="script.js"></script>
+<script>
+    var ws = new WebSocket("ws://109.156.186.198:80");
+
+    ws.onopen = function (ev) {
+        ws.send("connected");
+        console.log("connection made");
+    };
+
+    ws.onclose = function (ev) {
+        console.log("closing")
+    };
+
+    ws.onmessage = function (ev) {
+        console.log(ev.data)
+    };
 </script>
 </html>
