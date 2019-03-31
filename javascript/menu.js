@@ -1,3 +1,4 @@
+// this creates the client menu
 (function () {
     // Retrieve remote BrowserWindow
     const {BrowserWindow} = require('electron').remote
